@@ -8,7 +8,7 @@ class Motor:
     def __init__(self, pinForward, pinBackward, pinControl):
         """ Initialize the motor with its control pins and start pulse-width
              modulation """
-
+        
         self.pinForward = pinForward
         self.pinBackward = pinBackward
         self.pinControl = pinControl
@@ -25,8 +25,9 @@ class Motor:
         """ pinForward is the forward Pin, so we change its duty
              cycle according to speed. """
         self.pwm_backward.ChangeDutyCycle(0)
-        self.pwm_forward.ChangeDutyCycle(speed)    
+        self.pwm_forward.ChangeDutyCycle(speed)
 
+           
     def backward(self, speed):
         """ pinBackward is the forward Pin, so we change its duty
              cycle according to speed. """
@@ -39,33 +40,41 @@ class Motor:
 
         self.pwm_forward.ChangeDutyCycle(0)
         self.pwm_backward.ChangeDutyCycle(0)
+        
+def slowdown():
+    
+    motor1.forward(100)
+    motor2.forward(100)
+    sleep(5)
+    motor1.forward(80)
+    motor2.forward(80)
+    sleep(5)
+    motor1.forward(60)
+    motor2.forward(60)
+    sleep(5)
+    motor1.forward(40)
+    motor2.forward(40)
+    sleep(1)
+    motor1.forward(40)
+    motor2.forward(40)
+    sleep(1)
 
-motor1 = Motor(16, 22, 18)
-motor2 = Motor(23, 19, 21)
+def turnleft():
+        
+    motor1.backward(100)
+    motor2.backward(100)
+    motor3.forward(100)
+    motor4.forward(100)
+    sleep(2)     
+        
+motor1 = Motor(5, 7, 3)
+motor2 = Motor(35, 37, 33)
+motor3 = Motor(29, 31, 19)
+motor4 = Motor(13, 15, 11)
 
-# Motor 1 test
-motor1.forward(90)
-sleep(5)
-motor1.backward(50)
-sleep(5)
-motor1.stop()
-
-
-# Motor 2 test
-motor2.forward(90)
-sleep(5)
-motor2.backward(30)
-sleep(5)
-motor2.stop()
-
-# Running both
-motor1.forward(20)
-motor2.backward(70)
-sleep(5)
-motor1.forward(90)
-sleep(5)
-motor1.stop()
-motor2.stop()
+#motor2 = Motor(13, 15, 11)
+#motor3 = Motor(29, 31, 19)
+#motor4 = Motor(35, 37, 33)
 
 
-GPIO.cleanup()
+#GPIO.cleanup()
