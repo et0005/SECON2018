@@ -36,6 +36,7 @@ GPIO.setwarnings(False)
 # Use board numbering for pins
 GPIO.setmode(GPIO.BOARD)
 
+
 class Motor:
     def __init__(self, pinForward, pinBackward, pinControl):
         """ Initialize the motor with its control pins and start pulse-width
@@ -86,9 +87,3 @@ motor3 = Motor(29, 31, 19)
 motor4 = Motor(13, 15, 11)
 
 GPIO.cleanup()
-
-#read IR
-#given route find config
-#load config
-#plug into route engine
-#execute route via route engine

@@ -1,5 +1,62 @@
 #!/usr/bin/python
 
+#
+#            _______________________________________
+#           |                 WHEEL                 |                  E
+#           |                                       |                  |
+#           |                                       |               N--+--S
+#           |                                       |                  |
+#           |                                       |                  W
+#           |                                       |
+#           |                                       |
+#           |                TREASURE               |
+#           |                  ___                  |
+#           |                 |   |                 |
+#           |                 |___|                 |
+#           |                                       |
+#           |                                       |
+#           |                                       |
+#           |                                       |
+#           |                                       |
+#           |                                       |
+#           |                                       |
+#           |    ||                           ||    |
+#           |    ||  B                     B  ||    |
+#           |    ||                           ||    |
+#           |                                       |
+#           |                                       |
+#           |                                       |
+#           |                                       |
+#           |                                       |
+#           |             ________                  |
+#           |             \       \                 |
+#           |              \  RAMP \                |
+#           |_______________\       \_______________|
+#           |                _______                |
+#           |               |       |               |
+#        C  | A             | START |             A |  C
+#           |               |_______|               |
+#           |_______________________________________|
+#
+#
+#           IR Input at START:      North (0)   South (1)
+#
+#              MSB   --------------   LSB       Bin.     Route        Route
+#    bit        4      3       2       1        #        #
+#
+#               1      1       1       1        15       N/A          WAIT
+#               0      0       0       0        0        1            A : Left, B: Left, C: Left
+#               0      0       0       1        1        2            A : Left, B: Left, C: Right
+#               0      0       1       0        2        3            A : Left, B: Right, C: Left
+#               0      0       1       1        3        4            A : Left, B: Right, C: Right
+#               0      1       0       0        4        5            A : Right, B: Left, C: Left
+#               0      1       0       1        5        6            A : Right, B: Left, C: Right
+#               0      1       1       0        6        7            A : Right, B: Right, C: Left
+#               0      1       1       1        7        8            A : Right, B: Right, C: Right
+#
+#    func.    Start    A       B       C             (Bin. + 1)
+#
+
 import RPi.GPIO as GPIO
 import motor_control.py
 from time import sleep
@@ -45,13 +102,17 @@ def turnright(speed):
     stop()
 
 
-def forward_a():
+def turn4route(IR[]):
     if IR[2] == 0:
         turnleft(47)
-        print("Heading to location A. Route indicates turn North (0)\n")
-
     elif IR[2] == 1:
         turnright(47)
+
+def forward_a():
+
+        print("Heading to location A. Route indicates turn North (0)\n")
+
+
         print("Heading to location A. Route indicates turn South (1)\n")
 
     sleep(0.5)
@@ -62,6 +123,7 @@ def forward_a():
     sleep(1.4)
     stop()  # simulate button hit time
     sleep(4)  # simulate completion of first objective
+
 
 def backtrack_a():
     backward(50)  # return to center
@@ -168,3 +230,17 @@ def forward_c():
 def complete():
     stop()
     GPIO.cleanup()
+
+
+def begin():
+    forward_a()
+    backtrack_a()
+    walk_the_plank()
+    forward_b()
+    backtrack_b()
+    forward_chest()
+    align_to_start()
+    backtrack_to_start()
+    forward_c()
+    complete()
+
