@@ -89,7 +89,7 @@ def turnleft(speed):
     motor_control.motor2.backward(speed)
     motor_control.motor3.forward(speed)
     motor_control.motor4.forward(speed)
-    sleep(2.20)
+    sleep(1.95)
     stop()
 
 
@@ -98,7 +98,7 @@ def turnright(speed):
     motor_control.motor2.forward(speed)
     motor_control.motor3.backward(speed)
     motor_control.motor4.backward(speed)
-    sleep(2.20)
+    sleep(1.95)
     stop()
 
 
