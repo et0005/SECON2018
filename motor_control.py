@@ -81,9 +81,15 @@ class Motor:
 
 
 # Create motors and assign pins. (pinForward, pinBackward, pinControl)
-motor1 = Motor(5, 7, 3)
+
+# motor1 = Motor(5, 7, 3)
+# motor2 = Motor(35, 37, 33)
+# motor3 = Motor(29, 31, 19)
+# motor4 = Motor(13, 15, 11)
+
+motor3 = Motor(5, 7, 3)
 motor2 = Motor(35, 37, 33)
-motor3 = Motor(29, 31, 19)
-motor4 = Motor(13, 15, 11)
+motor4 = Motor(29, 31, 19)
+motor1 = Motor(13, 15, 11)
 
 GPIO.cleanup()
