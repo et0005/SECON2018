@@ -16,4 +16,4 @@ if IR_control.IR1.destA == 1:
 
 else:
     print("Begin Route!\n")
-    routeEngine.begin()
+    routeEngine.begin(IR_control.IR1)
