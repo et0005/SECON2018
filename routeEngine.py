@@ -58,8 +58,8 @@
 #
 
 import RPi.GPIO as GPIO
-import motor_control.py
 from time import sleep
+import motor_control.py
 
 
 # Functions to move motors in specific way to accomplish movement in each direction.
