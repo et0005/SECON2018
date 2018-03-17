@@ -62,21 +62,18 @@ class Motor:
         self.pwm_backward.start(0)
 
         GPIO.output(self.pinControl,GPIO.HIGH)
-        print("set-up")
 
     def forward(self, speed):
         """ pinForward is the forward Pin, so we change its duty
              cycle according to speed. """
         self.pwm_forward.ChangeDutyCycle(speed)
         self.pwm_backward.ChangeDutyCycle(0)
-        print("backward")
 
     def backward(self, speed):
         """ pinBackward is the backward Pin, so we change its duty
              cycle according to speed. """
         self.pwm_forward.ChangeDutyCycle(0)
         self.pwm_backward.ChangeDutyCycle(speed)
-        print("forward")
 
     def stop(self):
         """ Set the duty cycle of both control pins to zero to stop the motor. """

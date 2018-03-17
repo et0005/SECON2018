@@ -32,25 +32,21 @@ from pirateRobot import ultrasonic
 def forward(speed):
     motor_control.Driver.forward(speed)
     motor_control.Passenger.forward(speed)
-    print("Forward")
 
 
 def stop():
     motor_control.Driver.stop()
     motor_control.Passenger.stop()
-    print("Stop")
 
 
 def backward(speed):
     motor_control.Driver.backward(speed)
     motor_control.Passenger.backward(speed)
-    print("Backward")
     
 
 def turnleft(speed):
     motor_control.Driver.forward(speed)
     motor_control.Passenger.backward(speed)
-    print("Turn Left")
     sleep(1.95)
     stop()
 
@@ -58,28 +54,38 @@ def turnleft(speed):
 def turnright(speed):
     motor_control.Driver.backward(speed)
     motor_control.Passenger.forward(speed)
-    print("Turn Right")
     sleep(1.95)
     stop()
 
 
 def adjust():
     print("Ultrasonic adjustment\n")
-    x = ultrasonic.range_check()
-    print(x)
+    angle = ultrasonic.range_check()
+    
+    while angle == 1:
+        turnleft(62)
+        sleep(0.2)
+        stop()
+        angle = ultrasonic.range_check()
+        
+    while angle == 2:
+        turnright(62)
+        sleep(0.2)
+        stop()
+        angle = ultrasonic.range_check()
     
 
 def forward_a(IRsensor):
     if IR_control.IR1.destA == 0:
         print("Heading to location A. Route indicates turn North (0)\n")
-        turnleft(55)
+        turnleft(62)
         sleep(1)
         stop()
         sleep(1)
 
     elif IR_control.IR1.destA == 1:
         print("Heading to location A. Route indicates turn South (1)\n")
-        turnright(55)
+        turnright(62)
         sleep(1)
         stop()
         sleep(1)
@@ -88,7 +94,7 @@ def forward_a(IRsensor):
     
     adjust()
     
-    forward(55)
+    forward(62)
     sleep(1.4)
     stop()  # simulate button hit time
     sleep(4)  # simulate completion of first objective
@@ -97,7 +103,7 @@ def forward_a(IRsensor):
 def backtrack_a(IRsensor):
     print("Backtracking to center.\n")
     
-    backward(55)
+    backward(62)
     sleep(1.4)
     stop()
     sleep(1)
@@ -105,12 +111,12 @@ def backtrack_a(IRsensor):
     print("Facing center.\n")
 
     if IR_control.IR1.destA == 0:  # turn towards plank
-        turnright(55)
+        turnright(62)
         sleep(0.5)
         stop()
         sleep(1)
     elif IR_control.IR1.destA == 1:
-        turnleft(55)
+        turnleft(62)
         sleep(0.5)
         stop()
         sleep(1)
@@ -121,7 +127,7 @@ def backtrack_a(IRsensor):
 def walk_the_plank():
     print("Walking the plank, arr!")
     
-    forward(55)
+    forward(62)
     sleep(4)
     stop()
     sleep(1)
@@ -130,14 +136,14 @@ def walk_the_plank():
 def forward_b(IRsensor):
     if IR_control.IR1.destB == 0:
         print("Heading to location B. Route indicates turn North (0)\n")
-        turnleft(55)
+        turnleft(62)
         sleep(0.5)
         stop()
         sleep(1)
 
     elif IR_control.IR1.destB == 1:
         print("Heading to location B. Route indicates turn South (1)\n")
-        turnright(55)
+        turnright(62)
         sleep(0.5)
         stop()
         sleep(1)
@@ -146,7 +152,7 @@ def forward_b(IRsensor):
     
     adjust()
     
-    forward(55)
+    forward(62)
     sleep(1.5)
     stop()
     sleep(1)
@@ -155,7 +161,7 @@ def forward_b(IRsensor):
 def backtrack_b(IRsensor):
     print("Backtracking to center.\n")
     
-    backward(55)  # return to center
+    backward(62)  # return to center
     sleep(1.5)
     stop()
     sleep(1)
@@ -163,12 +169,12 @@ def backtrack_b(IRsensor):
     print("Facing center.\n")
 
     if IR_control.IR1.destB == 0:
-        turnright(55)
+        turnright(62)
         sleep(0.5)
         stop()
         sleep(1)
     elif IR_control.IR1.destB == 1:
-        turnleft(55)
+        turnleft(62)
         sleep(0.5)
         stop()
         sleep(1)
@@ -179,7 +185,7 @@ def backtrack_b(IRsensor):
 def forward_chest():
     print("Arrived at Treasure Chest.\n")
 
-    forward(55)
+    forward(62)
     sleep(1.5)
     stop()
     sleep(1)
@@ -190,17 +196,17 @@ def forward_chest():
 def align_to_start():
     print("Facing the ship.\n")
 
-    backward(55)
+    backward(62)
     sleep(1.5)
     stop()
     sleep(1)
     
-    turnright(55)
+    turnright(62)
     sleep(0.5)
     stop()
     sleep(1)
     
-    turnright(55)
+    turnright(62)
     sleep(0.5)
     stop()
     sleep(1)
@@ -215,14 +221,14 @@ def backtrack_to_start():
 def forward_c(IRsensor):
     if IR_control.IR1.destC == 0:
         print("Heading to location C. Route indicates turn North (0)\n")
-        turnleft(55)
+        turnleft(62)
         sleep(1)
         stop()
         sleep(1)
 
     elif IR_control.IR1.destC == 1:
         print("Heading to location C. Route indicates turn South (1)\n")
-        turnright(55)
+        turnright(62)
         sleep(1)
         stop()
         sleep(1)
@@ -231,7 +237,7 @@ def forward_c(IRsensor):
     
     adjust()
     
-    forward(55)
+    forward(62)
     sleep(1.4)
     stop()
 

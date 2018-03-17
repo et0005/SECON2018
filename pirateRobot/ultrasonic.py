@@ -49,21 +49,21 @@ class sonic_sensor:
         if distance <= 500:
             distance = distance * 10
             return distance
-        else:
+        elif distance > 500:
             return 999
 
 def range_check():
     print("range check function")
     
-    x = int(sensor1.sonicsensor())
-    y = int(sensor2.sonicsensor())
+    x = int(sensorL.sonicsensor())
+    y = int(sensorR.sonicsensor())
     
-    sensor1min = x-12 #define range value for sensors 
-    sensor2min = y-12
-    sensor1max = x+12
-    sensor2max = y+12
+    sensorLmin = x-12 #define range value for sensors 
+    sensorRmin = y-12
+    sensorLmax = x+12
+    sensorRmax = y+12
     
-    if x in range(sensor2min,sensor2max) and y in range(sensor1min,sensor1max):
+    if x in range(sensorRmin,sensorRmax) and y in range(sensorLmin,sensorLmax):
         return 0
     elif (x < y):
         return 2
@@ -71,22 +71,8 @@ def range_check():
         return 1
     
 
-sensor1 = sonic_sensor(24, 23) #Sensor 1
-sensor2 = sonic_sensor(15, 14) #Sensor 2
+sensorL = sonic_sensor(5, 6) #Sensor 1
+sensorR = sonic_sensor(18, 19) #Sensor 2
 
-x = sensor1.sonicsensor()
-y = sensor2.sonicsensor()
-
-print("Sensor 1 is = %d mm" % x)
-print("Sensor 2 is = %d mm" % y)
-
-print(range_check())
-#sensor1min = x-12 #define range value for sensors 
-#sensor2min = y-12 
-#sensor1max = x+12
-#sensor2max = y+12
-
-# if x in range(sensor2min,sensor2max) and y in range(sensor1min,sensor1max):
-#     print "they equal"
-# else:
-#     print "they not equal"
+x = sensorL.sonicsensor()
+y = sensorR.sonicsensor()
