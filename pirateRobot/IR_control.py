@@ -93,7 +93,7 @@ class IRsensor:
         self.destA = desta
         self.destB = destb
         self.destC = destc
-        print("set-up")
+        print("set-up IR")
 
 # Manually enter route codes for now.
 # ( Destination A, Destination B, Destination C)

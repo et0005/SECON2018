@@ -4,13 +4,16 @@ import RPi.GPIO as GPIO
 import time
 # from time import sleep
 
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 
 
 class sonic_sensor:
 
     def __init__(self, TRIG, ECHO):
-
+        #Color coding:
+        # Trigger = Brown
+        # Echo = Yellow
+        
         self.TRIG = TRIG  # Setup Trigger
         self.ECHO = ECHO  # Setup Echo
 
@@ -65,15 +68,15 @@ def range_check():
 
 
 # main()
-sensor1 = sonic_sensor(12, 16)  # Sensor 1
-sensor2 = sonic_sensor(11, 13)  # Sensor 2
-"""
+sensor1 = sonic_sensor(2, 3)  # Sensor 1
+#sensor2 = sonic_sensor(4, 14)  # Sensor 2
+
 x = int(sensor1.sonicsensor())
-y = int(sensor2.sonicsensor())
+#y = int(sensor2.sonicsensor())
 
 print("Sensor 1 is = %d mm" % x)
-print("Sensor 2 is = %d mm" % y)
-"""
+#print("Sensor 2 is = %d mm" % y)
+
 # print(range_check())
 # sensor1min = x-12 #define range value for sensors
 # sensor2min = y-12

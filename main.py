@@ -43,9 +43,9 @@ if IR_control.IR1.destA == 1:
 else:
     print("Begin Route!\n")
     print("Route is : ABC : ")
-    print IR_control.IR1.destA
-    print IR_control.IR1.destB
-    print IR_control.IR1.destC
+    print(IR_control.IR1.destA)
+    print(IR_control.IR1.destB)
+    print(IR_control.IR1.destC)
     print("\n")
         
     routeEngine.begin(IR_control.IR1)

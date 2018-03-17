@@ -26,7 +26,7 @@ from time import sleep
 # Dependent Files
 from pirateRobot import motor_control
 from pirateRobot import IR_control
-
+from pirateRobot import ultrasonic
 
 # Functions to move motors in specific way to accomplish movement in each direction.
 def forward(speed):
@@ -63,24 +63,30 @@ def turnright(speed):
     stop()
 
 
+def adjust():
+    print("Ultrasonic adjustment\n")
+    x = ultrasonic.range_check()
+    print(x)
+    
+
 def forward_a(IRsensor):
     if IR_control.IR1.destA == 0:
         print("Heading to location A. Route indicates turn North (0)\n")
-        turnleft(75)
+        turnleft(55)
         sleep(1)
         stop()
         sleep(1)
 
     elif IR_control.IR1.destA == 1:
         print("Heading to location A. Route indicates turn South (1)\n")
-        turnright(75)
+        turnright(55)
         sleep(1)
         stop()
         sleep(1)
 
     print("Arrived at A. Hitting Button.\n")
     
-    forward(75)
+    forward(55)
     sleep(1.4)
     stop()  # simulate button hit time
     sleep(4)  # simulate completion of first objective
@@ -89,7 +95,7 @@ def forward_a(IRsensor):
 def backtrack_a(IRsensor):
     print("Backtracking to center.\n")
     
-    backward(75)
+    backward(55)
     sleep(1.4)
     stop()
     sleep(1)
@@ -97,12 +103,12 @@ def backtrack_a(IRsensor):
     print("Facing center.\n")
 
     if IR_control.IR1.destA == 0:  # turn towards plank
-        turnright(75)
+        turnright(55)
         sleep(0.5)
         stop()
         sleep(1)
     elif IR_control.IR1.destA == 1:
-        turnleft(75)
+        turnleft(55)
         sleep(0.5)
         stop()
         sleep(1)
@@ -111,7 +117,7 @@ def backtrack_a(IRsensor):
 def walk_the_plank():
     print("Walking the plank, arr!")
     
-    forward(75)
+    forward(55)
     sleep(4)
     stop()
     sleep(1)
@@ -120,21 +126,21 @@ def walk_the_plank():
 def forward_b(IRsensor):
     if IR_control.IR1.destB == 0:
         print("Heading to location B. Route indicates turn North (0)\n")
-        turnleft(75)
+        turnleft(55)
         sleep(0.5)
         stop()
         sleep(1)
 
     elif IR_control.IR1.destB == 1:
         print("Heading to location B. Route indicates turn South (1)\n")
-        turnright(75)
+        turnright(55)
         sleep(0.5)
         stop()
         sleep(1)
         
     print("Arrived at B. Hitting Button.\n")
 
-    forward(75)
+    forward(55)
     sleep(1.5)
     stop()
     sleep(1)
@@ -143,7 +149,7 @@ def forward_b(IRsensor):
 def backtrack_b(IRsensor):
     print("Backtracking to center.\n")
     
-    backward(75)  # return to center
+    backward(55)  # return to center
     sleep(1.5)
     stop()
     sleep(1)
@@ -151,12 +157,12 @@ def backtrack_b(IRsensor):
     print("Facing center.\n")
 
     if IR_control.IR1.destB == 0:
-        turnright(75)
+        turnright(55)
         sleep(0.5)
         stop()
         sleep(1)
     elif IR_control.IR1.destB == 1:
-        turnleft(75)
+        turnleft(55)
         sleep(0.5)
         stop()
         sleep(1)
@@ -165,7 +171,7 @@ def backtrack_b(IRsensor):
 def forward_chest():
     print("Arrived at Treasure Chest.\n")
 
-    forward(75)
+    forward(55)
     sleep(1.5)
     stop()
     sleep(1)
@@ -176,17 +182,17 @@ def forward_chest():
 def align_to_start():
     print("Facing the ship.\n")
 
-    backward(75)
+    backward(55)
     sleep(1.5)
     stop()
     sleep(1)
     
-    turnright(75)
+    turnright(55)
     sleep(0.5)
     stop()
     sleep(1)
     
-    turnright(75)
+    turnright(55)
     sleep(0.5)
     stop()
     sleep(1)
@@ -199,21 +205,21 @@ def backtrack_to_start():
 def forward_c(IRsensor):
     if IR_control.IR1.destC == 0:
         print("Heading to location C. Route indicates turn North (0)\n")
-        turnleft(75)
+        turnleft(55)
         sleep(1)
         stop()
         sleep(1)
 
     elif IR_control.IR1.destC == 1:
         print("Heading to location C. Route indicates turn South (1)\n")
-        turnright(75)
+        turnright(55)
         sleep(1)
         stop()
         sleep(1)
         
     print("Arrived at C. Hitting Button.\n")
     
-    forward(75)
+    forward(55)
     sleep(1.4)
     stop()
 
