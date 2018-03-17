@@ -86,6 +86,8 @@ def forward_a(IRsensor):
 
     print("Arrived at A. Hitting Button.\n")
     
+    adjust()
+    
     forward(55)
     sleep(1.4)
     stop()  # simulate button hit time
@@ -112,6 +114,8 @@ def backtrack_a(IRsensor):
         sleep(0.5)
         stop()
         sleep(1)
+    
+    adjust()
 
 
 def walk_the_plank():
@@ -139,7 +143,9 @@ def forward_b(IRsensor):
         sleep(1)
         
     print("Arrived at B. Hitting Button.\n")
-
+    
+    adjust()
+    
     forward(55)
     sleep(1.5)
     stop()
@@ -166,6 +172,8 @@ def backtrack_b(IRsensor):
         sleep(0.5)
         stop()
         sleep(1)
+    
+    adjust()
 
 
 def forward_chest():
@@ -196,6 +204,8 @@ def align_to_start():
     sleep(0.5)
     stop()
     sleep(1)
+    
+    adjust()
 
 
 def backtrack_to_start():
@@ -218,6 +228,8 @@ def forward_c(IRsensor):
         sleep(1)
         
     print("Arrived at C. Hitting Button.\n")
+    
+    adjust()
     
     forward(55)
     sleep(1.4)
