@@ -98,3 +98,5 @@ class IRsensor:
 # Manually enter route codes for now.
 # ( Destination A, Destination B, Destination C)
 IR1 = IRsensor(0, 0, 0)
+
+#test comment to see if im doing this right
