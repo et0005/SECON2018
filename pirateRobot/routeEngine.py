@@ -23,10 +23,12 @@
 # Module for Raspberry Pi GPIO pins
 import RPi.GPIO as GPIO
 from time import sleep
+
 # Dependent Files
 from pirateRobot import motor_control
 from pirateRobot import IR_control
 from pirateRobot import ultrasonic
+
 
 # Functions to move motors in specific way to accomplish movement in each direction.
 def forward(speed):
@@ -44,14 +46,14 @@ def backward(speed):
     motor_control.Passenger.backward(speed)
     
 
-def turnleft(speed):
+def turn_left(speed):
     motor_control.Driver.forward(speed)
     motor_control.Passenger.backward(speed)
     sleep(1.95)
     stop()
 
 
-def turnright(speed):
+def turn_right(speed):
     motor_control.Driver.backward(speed)
     motor_control.Passenger.forward(speed)
     sleep(1.95)
@@ -63,29 +65,29 @@ def adjust():
     angle = ultrasonic.range_check()
     
     while angle == 1:
-        turnleft(62)
+        turn_left(62)
         sleep(0.2)
         stop()
         angle = ultrasonic.range_check()
         
     while angle == 2:
-        turnright(62)
+        turn_right(62)
         sleep(0.2)
         stop()
         angle = ultrasonic.range_check()
     
 
-def forward_a(IRsensor):
+def forward_a(InfraredSensor):
     if IR_control.IR1.destA == 0:
         print("Heading to location A. Route indicates turn North (0)\n")
-        turnleft(62)
+        turn_left(62)
         sleep(1)
         stop()
         sleep(1)
 
     elif IR_control.IR1.destA == 1:
         print("Heading to location A. Route indicates turn South (1)\n")
-        turnright(62)
+        turn_right(62)
         sleep(1)
         stop()
         sleep(1)
@@ -100,7 +102,7 @@ def forward_a(IRsensor):
     sleep(4)  # simulate completion of first objective
 
 
-def backtrack_a(IRsensor):
+def backtrack_a(InfraredSensor):
     print("Backtracking to center.\n")
     
     backward(62)
@@ -111,12 +113,12 @@ def backtrack_a(IRsensor):
     print("Facing center.\n")
 
     if IR_control.IR1.destA == 0:  # turn towards plank
-        turnright(62)
+        turn_right(62)
         sleep(0.5)
         stop()
         sleep(1)
     elif IR_control.IR1.destA == 1:
-        turnleft(62)
+        turn_left(62)
         sleep(0.5)
         stop()
         sleep(1)
@@ -133,17 +135,17 @@ def walk_the_plank():
     sleep(1)
 
 
-def forward_b(IRsensor):
+def forward_b(InfraredSensor):
     if IR_control.IR1.destB == 0:
         print("Heading to location B. Route indicates turn North (0)\n")
-        turnleft(62)
+        turn_left(62)
         sleep(0.5)
         stop()
         sleep(1)
 
     elif IR_control.IR1.destB == 1:
         print("Heading to location B. Route indicates turn South (1)\n")
-        turnright(62)
+        turn_right(62)
         sleep(0.5)
         stop()
         sleep(1)
@@ -158,7 +160,7 @@ def forward_b(IRsensor):
     sleep(1)
 
 
-def backtrack_b(IRsensor):
+def backtrack_b(InfraredSensor):
     print("Backtracking to center.\n")
     
     backward(62)  # return to center
@@ -169,12 +171,12 @@ def backtrack_b(IRsensor):
     print("Facing center.\n")
 
     if IR_control.IR1.destB == 0:
-        turnright(62)
+        turn_right(62)
         sleep(0.5)
         stop()
         sleep(1)
     elif IR_control.IR1.destB == 1:
-        turnleft(62)
+        turn_left(62)
         sleep(0.5)
         stop()
         sleep(1)
@@ -200,13 +202,13 @@ def align_to_start():
     sleep(1.5)
     stop()
     sleep(1)
-    
-    turnright(62)
+
+    turn_right(62)
     sleep(0.5)
     stop()
     sleep(1)
-    
-    turnright(62)
+
+    turn_right(62)
     sleep(0.5)
     stop()
     sleep(1)
@@ -218,17 +220,17 @@ def backtrack_to_start():
     walk_the_plank()
 
 
-def forward_c(IRsensor):
+def forward_c(InfraredSensor):
     if IR_control.IR1.destC == 0:
         print("Heading to location C. Route indicates turn North (0)\n")
-        turnleft(62)
+        turn_left(62)
         sleep(1)
         stop()
         sleep(1)
 
     elif IR_control.IR1.destC == 1:
         print("Heading to location C. Route indicates turn South (1)\n")
-        turnright(62)
+        turn_right(62)
         sleep(1)
         stop()
         sleep(1)
@@ -247,7 +249,7 @@ def complete():
     GPIO.cleanup()
 
 
-def begin(IRsensor):
+def begin(InfraredSensor):
     forward_a(IR_control.IR1.destA)
     backtrack_a(IR_control.IR1.destA)
     walk_the_plank()

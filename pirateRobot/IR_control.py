@@ -88,13 +88,13 @@ GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 
 
-class IRsensor:
+class InfraredSensor:
     def __init__(self, desta, destb, destc):
         self.destA = desta
         self.destB = destb
         self.destC = destc
-        print("set-up IR")
+
 
 # Manually enter route codes for now.
 # ( Destination A, Destination B, Destination C)
-IR1 = IRsensor(0, 0, 0)
+IR1 = InfraredSensor(0, 0, 0)

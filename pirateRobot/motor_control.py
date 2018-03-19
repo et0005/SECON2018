@@ -88,9 +88,11 @@ class Motor:
 # Backward = Yellow
 # WARNING: AA Battery pack Power is Blue and GND is Black :WARNING
 
+
 # Create motors and assign pins. (pinForward, pinBackward, pinControl)
 Passenger = Motor(21, 22, 23)
 Driver = Motor(13, 16, 17) 
+
 
 # Outdated, 2 chips and 4 motors
 # rearPassenger = Motor(5, 7, 3)

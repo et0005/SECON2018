@@ -1,34 +1,35 @@
 #!/usr/bin/python
 
-import sys
+# Module for Raspberry Pi GPIO pins
 import RPi.GPIO as GPIO
 from time import time
 from time import sleep
 
-GPIO.setmode(GPIO.BCM)
-
 # Ignore warnings
 GPIO.setwarnings(False)
 
-class sonic_sensor:                                                                                                                                                            
+# BOARD labels are printed on the board: PIN[#]
+# BCM labels are functional labels     : GPIO[#]
+# Use GPIO numbering for pins
+GPIO.setmode(GPIO.BCM)
 
+
+class SonicSensor:
     def __init__(self, TRIG, ECHO):
-
-        self.TRIG = TRIG #Setup Trigger
-        self.ECHO = ECHO #Setup Echo
+        self.TRIG = TRIG # Setup Trigger
+        self.ECHO = ECHO # Setup Echo
         
-        GPIO.setup(TRIG, GPIO.OUT) #Setup trigger to be output
-        GPIO.setup(ECHO, GPIO.IN)  #Setup echo to be input
-        print("set-up sonic")
+        GPIO.setup(TRIG, GPIO.OUT) # Setup trigger to be output
+        GPIO.setup(ECHO, GPIO.IN)  # Setup echo to be input
 
-    #def close(self, signal):
-    #    GPIO.cleanup()
-    #    sys.exit(0)
+    #   def close(self, signal):
+    #   GPIO.cleanup()
+    #   sys.exit(0)
     #
-    #    signal.signal(signal.SIGINT, close)
-    #    print("close sonic")
+    #   signal.signal(signal.SIGINT, close)
+    #   print("close sonic")
         
-    def sonicsensor(self):
+    def sonic_read(self):
         GPIO.output(self.TRIG, False)
         sleep(0.05)
     
@@ -52,27 +53,28 @@ class sonic_sensor:
         elif distance > 500:
             return 999
 
+
 def range_check():
-    print("range check function")
     
-    x = int(sensorL.sonicsensor())
-    y = int(sensorR.sonicsensor())
+    left_value = int(sensorL.sonic_read())
+    right_value = int(sensorR.sonic_read())
     
-    sensorLmin = x-12 #define range value for sensors 
-    sensorRmin = y-12
-    sensorLmax = x+12
-    sensorRmax = y+12
+    left_min = left_value - 12  # define range value for sensors
+    left_max = left_value + 12
+
+    right_min = right_value - 12
+    right_max = right_value + 12
     
-    if x in range(sensorRmin,sensorRmax) and y in range(sensorLmin,sensorLmax):
+    if left_value in range(right_min, right_max) and right_value in range(left_min, left_max):
         return 0
-    elif (x < y):
+    elif left_value < right_value:
         return 2
-    else:
+    else:  # left_value > right_value
         return 1
     
 
-sensorL = sonic_sensor(5, 6) #Sensor 1
-sensorR = sonic_sensor(18, 19) #Sensor 2
+sensorL = SonicSensor(5, 6)  # Sensor 1
+sensorR = SonicSensor(18, 19)  # Sensor 2
 
-x = sensorL.sonicsensor()
-y = sensorR.sonicsensor()
+x = sensorL.sonic_read()
+y = sensorR.sonic_read()
