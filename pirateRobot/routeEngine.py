@@ -24,13 +24,14 @@
 import RPi.GPIO as GPIO
 from time import sleep
 
-# Dependent Files
+# Dependent Files'
 from pirateRobot import motor_control
 from pirateRobot import IR_control
 from pirateRobot import ultrasonic
+from pirateRobot import servo_control
 
 
-# Functions to move motors in specific way to accomplish movement in each direction.
+# Functions to move DC motors in specific way to accomplish movement in each direction.
 def forward(speed):
     motor_control.Driver.forward(speed)
     motor_control.Passenger.forward(speed)
@@ -60,6 +61,23 @@ def turn_right(speed):
     stop()
 
 
+# Functions to move servos in specific way to accomplish movement.
+def straighten():
+    servo_control.wrist.SetAngle(90)
+
+
+def approach_wheel():
+    servo_control.rotate.SetAngle(0)
+    servo_control.claw.SetAngle(180)
+
+
+def turn_wheel():
+    servo_control.claw.SetAngle(0)
+    servo_control.rotate.SetAngle(270)
+    servo_control.claw.SetAngle(180)
+
+
+# Functions to make adjustments using ultrasonic sensors.
 def adjust():
     print("Ultrasonic adjustment\n")
     angle = ultrasonic.range_check()
@@ -77,6 +95,7 @@ def adjust():
         angle = ultrasonic.range_check()
     
 
+# Functions for each segment of a route.
 def forward_a(InfraredSensor):
     if IR_control.IR1.destA == 0:
         print("Heading to location A. Route indicates turn North (0)\n")
@@ -244,6 +263,7 @@ def forward_c(InfraredSensor):
     stop()
 
 
+# Functions at most basic level, start and end round.
 def complete():
     stop()
     GPIO.cleanup()
