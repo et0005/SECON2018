@@ -43,7 +43,7 @@ class SonicSensor:
             pulse_end = time()
             
         pulse_duration = pulse_end - pulse_start
-        print(pulse_duration)
+
         distance = pulse_duration * 17150
         distance = round(distance, 2)
         
@@ -56,8 +56,10 @@ class SonicSensor:
 
 def range_check():
     left_value = int(sensorL.sonic_read())
-    print (left_value)
+    print(left_value)
+    sleep(0.1)
     right_value = int(sensorR.sonic_read())
+    print(right_value)
     
     left_min = left_value - 12  # define range value for sensors
     left_max = left_value + 12
@@ -79,8 +81,4 @@ sensorR = SonicSensor(20, 19)  # Sensor 2
 #range_check()
 
 #x = sensorL.sonic_read()
-y = sensorR.sonic_read()
-
-
-GPIO.cleanup()
-
+#y = sensorR.sonic_read()

@@ -47,17 +47,17 @@ def backward(speed):
     motor_control.Passenger.backward(speed)
     
 
-def turn_left(speed):
+def turn_left(speed, turns):
     motor_control.Driver.forward(speed)
     motor_control.Passenger.backward(speed)
-    sleep(1.95)
+    sleep(turns)
     stop()
 
 
-def turn_right(speed):
+def turn_right(speed, turns):
     motor_control.Driver.backward(speed)
     motor_control.Passenger.forward(speed)
-    sleep(1.95)
+    sleep(turns)
     stop()
 
 
@@ -80,40 +80,36 @@ def turn_right(speed):
 # Functions to make adjustments using ultrasonic sensors.
 
 def adjust():
-    # pass
 
     print("Ultrasonic adjustment\n")
     angle = ultrasonic.range_check()
-    print("DEBUG: finish range_check")
     
     while angle == 1:
-        turn_left(62)
-        sleep(0.2)
+        #turn_left(75, 0.1)
+        turn_right(75, 0.2)
+        sleep(0.1)
         stop()
         angle = ultrasonic.range_check()
          
     while angle == 2:
-       turn_right(62)
-       sleep(0.2)
-       stop()
-       angle = ultrasonic.range_check()
-    
+        #turn_right(75, 0.1)
+        turn_left(75, 0.2)
+        sleep(0.1)
+        stop()
+        angle = ultrasonic.range_check()
+
 
 # Functions for each segment of a route.
 def forward_a(InfraredSensor):
     if IR_control.IR1.destA == 0:
         print("Heading to location A. Route indicates turn North (0)\n")
-        #turn_left(62)
-        turn_right(62)
-        sleep(1)
+        turn_left(75, 1.25)
         stop()
         sleep(1)
 
     elif IR_control.IR1.destA == 1:
         print("Heading to location A. Route indicates turn South (1)\n")
-        #turn_right(62)
-        turn_left(62)
-        sleep(1)
+        turn_right(75, 1.25)
         stop()
         sleep(1)
 
@@ -123,7 +119,7 @@ def forward_a(InfraredSensor):
     
     #forward(62)
     backward(62)
-    sleep(1.6)
+    sleep(1.8)
     stop()  # simulate button hit time
     sleep(4)  # simulate completion of first objective
 
@@ -140,15 +136,11 @@ def backtrack_a(InfraredSensor):
     print("Facing center.\n")
 
     if IR_control.IR1.destA == 0:  # turn towards plank
-        #turn_right(62)
-        turn_left(62)
-        sleep(0.5)
+        turn_right(75, 1.25)
         stop()
         sleep(1)
     elif IR_control.IR1.destA == 1:
-        #turn_left(62)
-        turn_right(62)
-        sleep(0.5)
+        turn_left(75, 1.25)
         stop()
         sleep(1)
     
@@ -167,15 +159,13 @@ def walk_the_plank():
 def forward_b(InfraredSensor):
     if IR_control.IR1.destB == 0:
         print("Heading to location B. Route indicates turn North (0)\n")
-        turn_left(62)
-        sleep(0.5)
+        turn_left(75, 1.25)
         stop()
         sleep(1)
 
     elif IR_control.IR1.destB == 1:
         print("Heading to location B. Route indicates turn South (1)\n")
-        turn_right(62)
-        sleep(0.5)
+        turn_right(75, 1.25)
         stop()
         sleep(1)
         
@@ -200,13 +190,11 @@ def backtrack_b(InfraredSensor):
     print("Facing center.\n")
 
     if IR_control.IR1.destB == 0:
-        turn_right(62)
-        sleep(0.5)
+        turn_right(75, 1.25)
         stop()
         sleep(1)
     elif IR_control.IR1.destB == 1:
-        turn_left(62)
-        sleep(0.5)
+        turn_left(75, 1.25)
         stop()
         sleep(1)
     
@@ -232,13 +220,11 @@ def align_to_start():
     stop()
     sleep(1)
 
-    turn_right(62)
-    sleep(0.5)
+    turn_right(75, 1.25)
     stop()
     sleep(1)
 
-    turn_right(62)
-    sleep(0.5)
+    turn_right(75, 1.25)
     stop()
     sleep(1)
     
@@ -252,17 +238,13 @@ def backtrack_to_start():
 def forward_c(InfraredSensor):
     if IR_control.IR1.destC == 0:
         print("Heading to location C. Route indicates turn North (0)\n")
-        #turn_left(62)
-        turn_right(62)
-        sleep(1)
+        turn_left(75, 1.25)
         stop()
         sleep(1)
 
     elif IR_control.IR1.destC == 1:
         print("Heading to location C. Route indicates turn South (1)\n")
-        #turn_right(62)
-        turn_left(62)
-        sleep(1)
+        turn_right(75, 1.25)
         stop()
         sleep(1)
         
