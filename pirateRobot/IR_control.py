@@ -1,5 +1,25 @@
 #!/usr/bin/python
+
+# ------------------------------------------------
 #
+#    Title : IR_control.py
+#
+#    Authors : Ashley Condrey
+#              David Flanigan
+#              Nathan Romans
+#              Payton Parrott
+#              Elena Todorovska
+#
+#    Created On : 01/01/2018
+#
+#    Description : This program performs 
+#
+#    Notes : This will be run on a Raspberry Pi
+#    using a 12V battery and 4 DC Motors. The
+#    motors are driven with PWM using a L293D.
+#
+# ------------------------------------------------
+
 #            _______________________________________
 #           |                 WHEEL                 |                  E
 #           |                                       |                  |
@@ -56,24 +76,25 @@
 #    func.    Start    A       B       C             (Bin. + 1)
 #
 
-import routeEngine.py
-import servo.py
+# Module for Raspberry Pi GPIO pins
+import RPi.GPIO as GPIO
 
-IR[4] = [0, 0, 0, 0]
+# Ignore warnings
+GPIO.setwarnings(False)
 
-if IR[3] == 1:
-    print("Wait for start signal\n")
+# BOARD labels are printed on the board: PIN[#]
+# BCM labels are functional labels     : GPIO[#]
+# Use GPIO numbering for pins
+GPIO.setmode(GPIO.BCM)
 
-else:
-    print("Begin Route!\n")
-    routeEngine.forward_a()
-    routeEngine.backtrack_a()
-    routeEngine.walk_the_plank()
-    routeEngine.forward_b()
-    routeEngine.backtrack_b()
-    routeEngine.forward_chest()
-    servo.spin_wheel()
-    routeEngine.align_to_start()
-    routeEngine.backtrack_to_start()
-    routeEngine.forward_c()
-    routeEngine.complete()
+
+class InfraredSensor:
+    def __init__(self, desta, destb, destc):
+        self.destA = desta
+        self.destB = destb
+        self.destC = destc
+
+
+# Manually enter route codes for now.
+# ( Destination A, Destination B, Destination C)
+IR1 = InfraredSensor(0, 0, 0)
