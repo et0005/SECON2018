@@ -1,4 +1,3 @@
-<<<<<<< HEAD:pirateRobot/motor_control.py
 #!/usr/bin/python
 
 # ------------------------------------------------
@@ -38,12 +37,10 @@ GPIO.setwarnings(False)
 # Use GPIO numbering for pins
 GPIO.setmode(GPIO.BCM)
 
-=======
 import RPi.GPIO as GPIO
 from time import sleep
  
 GPIO.setmode(GPIO.BOARD)
->>>>>>> origin/master:Motor_Test/motor_control.py
 
 class Motor:
 
@@ -82,7 +79,6 @@ class Motor:
         self.pwm_forward.ChangeDutyCycle(0)
         self.pwm_backward.ChangeDutyCycle(0)
 
-<<<<<<< HEAD:pirateRobot/motor_control.py
 # WIRING NOTES : Color coding is as follows :
 # Power = Purple
 # GND = Blue
@@ -102,43 +98,3 @@ Driver = Motor(13, 16, 17)
 # frontPassenger = Motor(35, 37, 33)
 # frontDriver = Motor(29, 31, 19)
 # rearDriver = Motor(13, 15, 11)
-''' #davids testing
-Driver.forward(50)
-sleep(2)
-Driver.stop()
-Passenger.forward(50)
-sleep(2)
-Passenger.stop()
-GPIO.cleanup()
-'''
-=======
-motor1 = Motor(16, 22, 18)
-motor2 = Motor(23, 19, 21)
-
-# Motor 1 test
-motor1.forward(90)
-sleep(5)
-motor1.backward(50)
-sleep(5)
-motor1.stop()
-
-
-# Motor 2 test
-motor2.forward(90)
-sleep(5)
-motor2.backward(30)
-sleep(5)
-motor2.stop()
-
-# Running both
-motor1.forward(20)
-motor2.backward(70)
-sleep(5)
-motor1.forward(90)
-sleep(5)
-motor1.stop()
-motor2.stop()
-
-
-GPIO.cleanup()
->>>>>>> origin/master:Motor_Test/motor_control.py
