@@ -24,11 +24,11 @@
 import RPi.GPIO as GPIO
 from time import sleep
 
-# Dependent Files'
+# Dependent Files
 from pirateRobot import motor_control
 from pirateRobot import IR_control
 from pirateRobot import ultrasonic
-from pirateRobot import servo_control
+#from pirateRobot import servo_control
 
 
 # Functions to move DC motors in specific way to accomplish movement in each direction.
@@ -62,51 +62,57 @@ def turn_right(speed):
 
 
 # Functions to move servos in specific way to accomplish movement.
-def straighten():
-    servo_control.wrist.SetAngle(90)
+#def straighten():
+#    servo_control.wrist.SetAngle(90)
 
 
-def approach_wheel():
-    servo_control.rotate.SetAngle(0)
-    servo_control.claw.SetAngle(180)
+#def approach_wheel():
+#    servo_control.rotate.SetAngle(0)
+#    servo_control.claw.SetAngle(180)
 
 
-def turn_wheel():
-    servo_control.claw.SetAngle(0)
-    servo_control.rotate.SetAngle(270)
-    servo_control.claw.SetAngle(180)
+#def turn_wheel():
+#    servo_control.claw.SetAngle(0)
+#    servo_control.rotate.SetAngle(270)
+#    servo_control.claw.SetAngle(180)
 
 
 # Functions to make adjustments using ultrasonic sensors.
+
 def adjust():
+    # pass
+
     print("Ultrasonic adjustment\n")
     angle = ultrasonic.range_check()
+    print("DEBUG: finish range_check")
     
     while angle == 1:
         turn_left(62)
         sleep(0.2)
         stop()
         angle = ultrasonic.range_check()
-        
+         
     while angle == 2:
-        turn_right(62)
-        sleep(0.2)
-        stop()
-        angle = ultrasonic.range_check()
+       turn_right(62)
+       sleep(0.2)
+       stop()
+       angle = ultrasonic.range_check()
     
 
 # Functions for each segment of a route.
 def forward_a(InfraredSensor):
     if IR_control.IR1.destA == 0:
         print("Heading to location A. Route indicates turn North (0)\n")
-        turn_left(62)
+        #turn_left(62)
+        turn_right(62)
         sleep(1)
         stop()
         sleep(1)
 
     elif IR_control.IR1.destA == 1:
         print("Heading to location A. Route indicates turn South (1)\n")
-        turn_right(62)
+        #turn_right(62)
+        turn_left(62)
         sleep(1)
         stop()
         sleep(1)
@@ -115,8 +121,9 @@ def forward_a(InfraredSensor):
     
     adjust()
     
-    forward(62)
-    sleep(1.4)
+    #forward(62)
+    backward(62)
+    sleep(1.6)
     stop()  # simulate button hit time
     sleep(4)  # simulate completion of first objective
 
@@ -124,20 +131,23 @@ def forward_a(InfraredSensor):
 def backtrack_a(InfraredSensor):
     print("Backtracking to center.\n")
     
-    backward(62)
-    sleep(1.4)
+    #backward(62)
+    forward(62)
+    sleep(1.6)
     stop()
     sleep(1)
 
     print("Facing center.\n")
 
     if IR_control.IR1.destA == 0:  # turn towards plank
-        turn_right(62)
+        #turn_right(62)
+        turn_left(62)
         sleep(0.5)
         stop()
         sleep(1)
     elif IR_control.IR1.destA == 1:
-        turn_left(62)
+        #turn_left(62)
+        turn_right(62)
         sleep(0.5)
         stop()
         sleep(1)
@@ -149,7 +159,7 @@ def walk_the_plank():
     print("Walking the plank, arr!")
     
     forward(62)
-    sleep(4)
+    sleep(3.8)
     stop()
     sleep(1)
 
@@ -174,7 +184,7 @@ def forward_b(InfraredSensor):
     adjust()
     
     forward(62)
-    sleep(1.5)
+    sleep(1.8)
     stop()
     sleep(1)
 
@@ -183,7 +193,7 @@ def backtrack_b(InfraredSensor):
     print("Backtracking to center.\n")
     
     backward(62)  # return to center
-    sleep(1.5)
+    sleep(1.8)
     stop()
     sleep(1)
 
@@ -242,14 +252,16 @@ def backtrack_to_start():
 def forward_c(InfraredSensor):
     if IR_control.IR1.destC == 0:
         print("Heading to location C. Route indicates turn North (0)\n")
-        turn_left(62)
+        #turn_left(62)
+        turn_right(62)
         sleep(1)
         stop()
         sleep(1)
 
     elif IR_control.IR1.destC == 1:
         print("Heading to location C. Route indicates turn South (1)\n")
-        turn_right(62)
+        #turn_right(62)
+        turn_left(62)
         sleep(1)
         stop()
         sleep(1)
@@ -258,8 +270,9 @@ def forward_c(InfraredSensor):
     
     adjust()
     
-    forward(62)
-    sleep(1.4)
+    #forward(62)
+    backward(62)
+    sleep(1.6)
     stop()
 
 

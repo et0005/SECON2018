@@ -10,6 +10,8 @@ GPIO.setwarnings(False)
 # Use GPIO numbering for pins
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(05,GPIO.OUT)
+GPIO.setup(06,GPIO.OUT)
+GPIO.setup(07,GPIO.OUT)
 
 # pwm=GPIO.PWM(05,50)
 # pwm.start(0)

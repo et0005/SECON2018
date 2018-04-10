@@ -28,7 +28,7 @@
 
 # Module for Raspberry Pi GPIO pins
 import RPi.GPIO as GPIO
-
+from time import sleep
 # Ignore warnings
 GPIO.setwarnings(False)
 
@@ -99,3 +99,12 @@ Driver = Motor(13, 16, 17)
 # frontPassenger = Motor(35, 37, 33)
 # frontDriver = Motor(29, 31, 19)
 # rearDriver = Motor(13, 15, 11)
+''' #davids testing
+Driver.forward(50)
+sleep(2)
+Driver.stop()
+Passenger.forward(50)
+sleep(2)
+Passenger.stop()
+GPIO.cleanup()
+'''
