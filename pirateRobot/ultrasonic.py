@@ -16,7 +16,6 @@ GPIO.setmode(GPIO.BCM)
 
 class SonicSensor:
     def __init__(self, TRIG, ECHO):
-        print("DEBUG: setup ultrasonic")
         self.TRIG = TRIG # Setup Trigger
         self.ECHO = ECHO # Setup Echo
         
@@ -31,23 +30,17 @@ class SonicSensor:
     #   print("close sonic")
         
     def sonic_read(self):
-        print("DEBUG: sonic_read function line 1")
         GPIO.output(self.TRIG, False)
         sleep(0.05)
     
         GPIO.output(self.TRIG, True)
         sleep(0.00001)
         GPIO.output(self.TRIG, False)
-        print("DEBUG: sonic_read function line 8")
         while GPIO.input(self.ECHO) == 0:
             pulse_start = time()
-            print("DEBUG: sonic_read function while == 0")
 
         while GPIO.input(self.ECHO) == 1:
             pulse_end = time()
-            print("DEBUG: sonic_read function while == 1")
-
-        #pulse_start = time()
             
         pulse_duration = pulse_end - pulse_start
         print(pulse_duration)
@@ -62,9 +55,7 @@ class SonicSensor:
 
 
 def range_check():
-    print("DEBUG: range_check function line 1")
     left_value = int(sensorL.sonic_read())
-    print("DEBUG: left_value")
     print (left_value)
     right_value = int(sensorR.sonic_read())
     
@@ -83,10 +74,13 @@ def range_check():
     
 
 sensorL = SonicSensor(5, 6)  # Sensor 1
-#sensorR = SonicSensor(20, 19)  # Sensor 2
+sensorR = SonicSensor(20, 19)  # Sensor 2
 
-range_check()
-x = sensorL.sonic_read()
+#range_check()
+
+#x = sensorL.sonic_read()
+y = sensorR.sonic_read()
+
 
 GPIO.cleanup()
-#y = sensorR.sonic_read()
+

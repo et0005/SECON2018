@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 from time import sleep
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 
 class sonic_sensor:
 
@@ -60,23 +60,23 @@ def range_check():
         return 1 #turnleft
     
 #main()
-sensor1 = sonic_sensor(12, 16) #Sensor 1
-sensor2 = sonic_sensor(11, 13) #Sensor 2
-"""
-x = int(sensor1.sonicsensor())
-y = int(sensor2.sonicsensor())
+sensor1 = sonic_sensor(5, 6) #Sensor 1
+sensor2 = sonic_sensor(18, 19) #Sensor 2
 
-print("Sensor 1 is = %d mm" % x)
-print("Sensor 2 is = %d mm" % y)
-"""
+#x = int(sensor1.sonicsensor())
+#y = int(sensor2.sonicsensor())
+
+#print("Sensor 1 is = %d mm" % x)
+#print("Sensor 2 is = %d mm" % y)
+print(sensor1.sonicsensor())
 #print(range_check())
 #sensor1min = x-12 #define range value for sensors 
 #sensor2min = y-12 
 #sensor1max = x+12
 #sensor2max = y+12
-"""
+'''
 if x in range(sensor2min,sensor2max) and y in range(sensor1min,sensor1max):
     print "they equal"
 else:
     print "they not equal"
-"""
+'''
