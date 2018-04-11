@@ -92,8 +92,8 @@ def adjust():
         angle = ultrasonic.range_check()
          
     while angle == 2:
-        #turn_right(75, 0.1)
-        turn_left(75, 0.2)
+        turn_right(75, 0.1)
+        #turn_left(75, 0.2)
         sleep(0.1)
         stop()
         angle = ultrasonic.range_check()
@@ -103,13 +103,13 @@ def adjust():
 def forward_a(InfraredSensor):
     if IR_control.IR1.destA == 0:
         print("Heading to location A. Route indicates turn North (0)\n")
-        turn_left(75, 1.25)
+        turn_left(75, 1.2)
         stop()
         sleep(1)
 
     elif IR_control.IR1.destA == 1:
         print("Heading to location A. Route indicates turn South (1)\n")
-        turn_right(75, 1.25)
+        turn_right(75, 1.2)
         stop()
         sleep(1)
 
@@ -136,11 +136,11 @@ def backtrack_a(InfraredSensor):
     print("Facing center.\n")
 
     if IR_control.IR1.destA == 0:  # turn towards plank
-        turn_right(75, 1.25)
+        turn_right(75, 1.2)
         stop()
         sleep(1)
     elif IR_control.IR1.destA == 1:
-        turn_left(75, 1.25)
+        turn_left(75, 1.2)
         stop()
         sleep(1)
     
@@ -159,13 +159,13 @@ def walk_the_plank():
 def forward_b(InfraredSensor):
     if IR_control.IR1.destB == 0:
         print("Heading to location B. Route indicates turn North (0)\n")
-        turn_left(75, 1.25)
+        turn_left(75, 1.2)
         stop()
         sleep(1)
 
     elif IR_control.IR1.destB == 1:
         print("Heading to location B. Route indicates turn South (1)\n")
-        turn_right(75, 1.25)
+        turn_right(75, 1.2)
         stop()
         sleep(1)
         
@@ -190,11 +190,11 @@ def backtrack_b(InfraredSensor):
     print("Facing center.\n")
 
     if IR_control.IR1.destB == 0:
-        turn_right(75, 1.25)
+        turn_right(75, 1.2)
         stop()
         sleep(1)
     elif IR_control.IR1.destB == 1:
-        turn_left(75, 1.25)
+        turn_left(75, 1.2)
         stop()
         sleep(1)
     
@@ -220,11 +220,11 @@ def align_to_start():
     stop()
     sleep(1)
 
-    turn_right(75, 1.25)
+    turn_right(75, 1.2)
     stop()
     sleep(1)
 
-    turn_right(75, 1.25)
+    turn_right(75, 1.2)
     stop()
     sleep(1)
     
@@ -238,13 +238,13 @@ def backtrack_to_start():
 def forward_c(InfraredSensor):
     if IR_control.IR1.destC == 0:
         print("Heading to location C. Route indicates turn North (0)\n")
-        turn_left(75, 1.25)
+        turn_left(75, 1.2)
         stop()
         sleep(1)
 
     elif IR_control.IR1.destC == 1:
         print("Heading to location C. Route indicates turn South (1)\n")
-        turn_right(75, 1.25)
+        turn_right(75, 1.2)
         stop()
         sleep(1)
         

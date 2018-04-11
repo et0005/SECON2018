@@ -1,4 +1,3 @@
-<<<<<<< HEAD:pirateRobot/motor_control.py
 #!/usr/bin/python
 
 # ------------------------------------------------
@@ -38,51 +37,50 @@ GPIO.setwarnings(False)
 # Use GPIO numbering for pins
 GPIO.setmode(GPIO.BCM)
 
-=======
-import RPi.GPIO as GPIO
-from time import sleep
- 
-GPIO.setmode(GPIO.BOARD)
->>>>>>> origin/master:Motor_Test/motor_control.py
 
 class Motor:
-
     def __init__(self, pinForward, pinBackward, pinControl):
         """ Initialize the motor with its control pins and start pulse-width
              modulation """
-
+        # Initialize pins
         self.pinForward = pinForward
         self.pinBackward = pinBackward
         self.pinControl = pinControl
-        GPIO.setup(self.pinForward, GPIO.OUT)
-        GPIO.setup(self.pinBackward, GPIO.OUT)
-        GPIO.setup(self.pinControl, GPIO.OUT)
+
+        # Setup pins as output
+        GPIO.setup(self.pinForward, GPIO.OUT, initial=GPIO.LOW)
+        GPIO.setup(self.pinBackward, GPIO.OUT, initial=GPIO.LOW)
+        GPIO.setup(self.pinControl, GPIO.OUT, initial=GPIO.LOW)
+        
+        # Configure PWM on output pins, pin enable and duty cycle
+        # GPIO.PWM(output channel , frequency of PWM signal)
         self.pwm_forward = GPIO.PWM(self.pinForward, 100)
         self.pwm_backward = GPIO.PWM(self.pinBackward, 100)
+        
+        # Start at 0% duty cycle
         self.pwm_forward.start(0)
         self.pwm_backward.start(0)
+        
         GPIO.output(self.pinControl,GPIO.HIGH) 
 
     def forward(self, speed):
         """ pinForward is the forward Pin, so we change its duty
              cycle according to speed. """
-        self.pwm_backward.ChangeDutyCycle(0)
-        self.pwm_forward.ChangeDutyCycle(speed)    
+        self.pwm_forward.ChangeDutyCycle(speed)
+        self.pwm_backward.ChangeDutyCycle(0)   
 
     def backward(self, speed):
         """ pinBackward is the forward Pin, so we change its duty
              cycle according to speed. """
-
         self.pwm_forward.ChangeDutyCycle(0)
         self.pwm_backward.ChangeDutyCycle(speed)
 
     def stop(self):
         """ Set the duty cycle of both control pins to zero to stop the motor. """
-
         self.pwm_forward.ChangeDutyCycle(0)
         self.pwm_backward.ChangeDutyCycle(0)
-
-<<<<<<< HEAD:pirateRobot/motor_control.py
+        
+        
 # WIRING NOTES : Color coding is as follows :
 # Power = Purple
 # GND = Blue
@@ -102,43 +100,3 @@ Driver = Motor(13, 16, 17)
 # frontPassenger = Motor(35, 37, 33)
 # frontDriver = Motor(29, 31, 19)
 # rearDriver = Motor(13, 15, 11)
-''' #davids testing
-Driver.forward(50)
-sleep(2)
-Driver.stop()
-Passenger.forward(50)
-sleep(2)
-Passenger.stop()
-GPIO.cleanup()
-'''
-=======
-motor1 = Motor(16, 22, 18)
-motor2 = Motor(23, 19, 21)
-
-# Motor 1 test
-motor1.forward(90)
-sleep(5)
-motor1.backward(50)
-sleep(5)
-motor1.stop()
-
-
-# Motor 2 test
-motor2.forward(90)
-sleep(5)
-motor2.backward(30)
-sleep(5)
-motor2.stop()
-
-# Running both
-motor1.forward(20)
-motor2.backward(70)
-sleep(5)
-motor1.forward(90)
-sleep(5)
-motor1.stop()
-motor2.stop()
-
-
-GPIO.cleanup()
->>>>>>> origin/master:Motor_Test/motor_control.py
