@@ -5,6 +5,9 @@ import RPi.GPIO as GPIO
 from time import time
 from time import sleep
 
+#tolerance = {'A':515 ,'B': 483, 'plank': 2133, 'chest': 965, 'C': 700}
+#last_turn = 3
+
 # Ignore warnings
 GPIO.setwarnings(False)
 
@@ -46,39 +49,10 @@ class SonicSensor:
 
         distance = pulse_duration * 17150
         distance = round(distance, 2)
+        distance = distance * 10
         
-        if distance <= 500:
-            distance = distance * 10
-            return distance
-        elif distance > 500:
-            return 999
-
-
-def range_check():
-    left_value = int(sensorL.sonic_read())
-    print(left_value)
-    sleep(0.1)
-    right_value = int(sensorR.sonic_read())
-    print(right_value)
-    
-    left_min = left_value - 12  # define range value for sensors
-    left_max = left_value + 12
-
-    right_min = right_value - 12
-    right_max = right_value + 12
-    
-    if left_value in range(right_min, right_max) and right_value in range(left_min, left_max):
-        return 0
-    elif left_value < right_value:
-        return 2
-    else:  # left_value > right_value
-        return 1
-    
+        return distance
+     
 
 sensorL = SonicSensor(5, 6)  # Sensor 1
 sensorR = SonicSensor(20, 19)  # Sensor 2
-
-#range_check()
-
-#x = sensorL.sonic_read()
-#y = sensorR.sonic_read()
