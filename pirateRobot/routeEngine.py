@@ -30,7 +30,10 @@ from pirateRobot import IR_control
 from pirateRobot import ultrasonic
 #from pirateRobot import servo_control
 
-tolerance = {'A':515 ,'B': 483, 'plank': 2133, 'chest': 965, 'C': 700}
+global tolerance
+global last_turn
+
+tolerance = {'A':500 ,'B': 483, 'plank': 2133, 'chest': 965, 'C': 700}
 last_turn = 3
 
 # Functions to move DC motors in specific way to accomplish movement in each direction.
@@ -54,22 +57,14 @@ def turn_left(speed, turns):
     motor_control.Passenger.backward(speed)
     sleep(turns)
     stop()
-    print(last_turn)
-    global last_turn
-    last_turn = 0 #keep track of last turn
-    print("AFTER")
-    print(last_turn)
+
 
 def turn_right(speed, turns):
     motor_control.Driver.backward(speed)
     motor_control.Passenger.forward(speed)
     sleep(turns)
     stop()
-    print(last_turn)
-    global last_turn
-    last_turn = 1 #keep track of last turn
-    print("AFTER")
-    print(last_turn)
+
 
 # Functions to move servos in specific way to accomplish movement.
 #def straighten():
@@ -127,7 +122,7 @@ def adjust(tolerance):
         turn_right(75, 0.2)
         sleep(0.1)
         stop()
-        angle = range_check()
+        angle = range_check(tolerance)
          
     while angle == 1: # too far to the left, turn right
         print("Too far to the left, TURN RIGHT")
@@ -135,26 +130,26 @@ def adjust(tolerance):
         turn_left(75, 0.2)
         sleep(0.1)
         stop()
-        angle = range_check()
+        angle = range_check(tolerance)
 
     # While angle == 2: equal do nothing
 
     while angle == 3: # totally out of range
         print("totally out of range")
         if last_turn == 1:
-            print("Turn LEFT")
-            turn_left(75, 0.2)
-            #turn_right(75,0.2)
-            sleep(0.1)
-            stop()
-            angle = range_check()
-        elif last_turn == 0:
             print("Turn RIGHT")
-            #turn_left(75,0.2)
+            #turn_left(75, 0.2)
             turn_right(75,0.2)
             sleep(0.1)
             stop()
-            angle = range_check()
+            angle = range_check(tolerance)
+        elif last_turn == 0:
+            print("Turn LEFT")
+            turn_left(75,0.2)
+            #turn_right(75,0.2)
+            sleep(0.1)
+            stop()
+            angle = range_check(tolerance)
         else:    
             print("ELSE")
 
@@ -163,18 +158,22 @@ def forward_a(InfraredSensor):
     if IR_control.IR1.destA == 0:
         print("Heading to location A. Route indicates turn North (0)\n")
         turn_left(75, 1.3)
+        global last_turn
+        last_turn = 0 #keep track of last turn
         stop()
         sleep(1)
 
     elif IR_control.IR1.destA == 1:
         print("Heading to location A. Route indicates turn South (1)\n")
         turn_right(75, 1.3)
+        global last_turn
+        last_turn = 1 #keep track of last turn
         stop()
         sleep(1)
 
     print("Arrived at A. Hitting Button.\n")
     
-    adjust(tolerance['A'], last_turn)
+    adjust(tolerance['A'])
     
     #forward(62)
     backward(62)
@@ -196,14 +195,18 @@ def backtrack_a(InfraredSensor):
 
     if IR_control.IR1.destA == 0:  # turn towards plank
         turn_right(75, 1.3)
+        global last_turn
+        last_turn = 0 #keep track of last turn
         stop()
         sleep(1)
     elif IR_control.IR1.destA == 1:
         turn_left(75, 1.3)
+        global last_turn
+        last_turn = 1 #keep track of last turn
         stop()
         sleep(1)
     
-    adjust(tolerance['plank'], last_turn)
+    adjust(tolerance['plank'])
 
 
 def walk_the_plank():
@@ -219,18 +222,22 @@ def forward_b(InfraredSensor):
     if IR_control.IR1.destB == 0:
         print("Heading to location B. Route indicates turn North (0)\n")
         turn_left(75, 1.3)
+        global last_turn
+        last_turn = 0 #keep track of last turn
         stop()
         sleep(1)
 
     elif IR_control.IR1.destB == 1:
         print("Heading to location B. Route indicates turn South (1)\n")
         turn_right(75, 1.3)
+        global last_turn
+        last_turn = 1 #keep track of last turn
         stop()
         sleep(1)
         
     print("Arrived at B. Hitting Button.\n")
     
-    adjust(tolerance['B'], last_turn)
+    adjust(tolerance['B'])
     
     forward(62)
     sleep(1.8)
@@ -250,14 +257,18 @@ def backtrack_b(InfraredSensor):
 
     if IR_control.IR1.destB == 0:
         turn_right(75, 1.3)
+        global last_turn
+        last_turn = 0 #keep track of last turn
         stop()
         sleep(1)
     elif IR_control.IR1.destB == 1:
         turn_left(75, 1.3)
+        global last_turn
+        last_turn = 1 #keep track of last turn
         stop()
         sleep(1)
     
-    adjust(tolerance['chest'], last_turn)
+    adjust(tolerance['chest'])
 
 
 def forward_chest():
@@ -287,7 +298,10 @@ def align_to_start():
     stop()
     sleep(1)
     
-    adjust(tolerance['C'], last_turn)
+    global last_turn
+    last_turn = 1 #keep track of last turn
+    
+    adjust(tolerance['C'])
 
 
 def backtrack_to_start():
@@ -298,18 +312,22 @@ def forward_c(InfraredSensor):
     if IR_control.IR1.destC == 0:
         print("Heading to location C. Route indicates turn North (0)\n")
         turn_left(75, 1.2)
+        global last_turn
+        last_turn = 0 #keep track of last turn
         stop()
         sleep(1)
 
     elif IR_control.IR1.destC == 1:
         print("Heading to location C. Route indicates turn South (1)\n")
         turn_right(75, 1.2)
+        global last_turn
+        last_turn = 1 #keep track of last turn
         stop()
         sleep(1)
         
     print("Arrived at C. Hitting Button.\n")
     
-    adjust(tolerance['A'], last_turn)
+    adjust(tolerance['A'])
     
     #forward(62)
     backward(62)
