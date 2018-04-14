@@ -34,7 +34,7 @@ global tolerance_max
 global tolerance_min
 global last_turn
 
-tolerance_max = {'A':550 ,'B': 483, 'plank': 280, 'chest': 965, 'C': 700}
+tolerance_max = {'A':550 ,'B': 483, 'plank': 205, 'chest': 965, 'C': 700}
 tolerance_min = {'A':450 ,'B': 383, 'plank': 0, 'chest': 865, 'C': 600}
 #plank long distance: 2133
 last_turn = 3
@@ -158,7 +158,7 @@ def adjust(tolerance_max, tolerance_min):
 def forward_a(InfraredSensor):
     if IR_control.IR1.destA == 0:
         print("Heading to location A. Route indicates turn North (0)\n")
-        turn_right(75, 1.2)
+        turn_right(75, 1.7)
         global last_turn
         last_turn = 0 #keep track of last turn
         stop()
@@ -166,7 +166,7 @@ def forward_a(InfraredSensor):
 
     elif IR_control.IR1.destA == 1:
         print("Heading to location A. Route indicates turn South (1)\n")
-        turn_left(75, 1.2)
+        turn_left(75, 1.7)
         global last_turn
         last_turn = 1 #keep track of last turn
         stop()
@@ -174,7 +174,7 @@ def forward_a(InfraredSensor):
 
     print("Arrived at A. Hitting Button.\n")
     
-    adjust(tolerance_max['A'], tolerance_min['A'])
+    #adjust(tolerance_max['A'], tolerance_min['A'])
     
     #forward(62)
     backward(62)
@@ -195,13 +195,13 @@ def backtrack_a(InfraredSensor):
     print("Facing center.\n")
 
     if IR_control.IR1.destA == 0:  # turn towards plank
-        turn_right(75, 1.3)
+        turn_right(75, 1.5)#1.6)
         global last_turn
         last_turn = 0 #keep track of last turn
         stop()
         sleep(1)
     elif IR_control.IR1.destA == 1:
-        turn_left(75, 1.3)
+        turn_left(75, 1.5)#1.6)
         global last_turn
         last_turn = 1 #keep track of last turn
         stop()
@@ -215,7 +215,7 @@ def walk_the_plank():
     
     #forward(62)
     backward(62)
-    sleep(3.6)
+    sleep(3.4)
     stop()
     sleep(1)
 
@@ -223,7 +223,7 @@ def walk_the_plank():
 def forward_b(InfraredSensor):
     if IR_control.IR1.destB == 0:
         print("Heading to location B. Route indicates turn North (0)\n")
-        turn_right(75, 1.3)
+        turn_right(75, 1.5)
         global last_turn
         last_turn = 0 #keep track of last turn
         stop()
@@ -231,7 +231,7 @@ def forward_b(InfraredSensor):
 
     elif IR_control.IR1.destB == 1:
         print("Heading to location B. Route indicates turn South (1)\n")
-        turn_left(75, 1.3)
+        turn_left(75, 1.5)
         global last_turn
         last_turn = 1 #keep track of last turn
         stop()
@@ -333,7 +333,7 @@ def forward_c(InfraredSensor):
         
     print("Arrived at C. Hitting Button.\n")
     
-    adjust(tolerance_max['A'], tolerance_min['A'])
+    #adjust(tolerance_max['A'], tolerance_min['A'])
     
     #forward(62)
     backward(62)
@@ -350,9 +350,9 @@ def complete():
 def begin(InfraredSensor):
     forward_a(IR_control.IR1.destA)
     backtrack_a(IR_control.IR1.destA)
-    '''
     walk_the_plank()
     forward_b(IR_control.IR1.destB)
+    '''
     backtrack_b(IR_control.IR1.destB)
     forward_chest()
     align_to_start()

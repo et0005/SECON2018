@@ -135,16 +135,16 @@ void game()
         bit=rand()%2; //outputs either 1's or 0's
         coordinates[i+5]= bit + 48; //manipulates and interprets the bit 5-7 interger value in the array into ASCII
     }
-    
+
     /*Loop to send IR positiong message continuosly until button0  is pressed*/
     while(1)
     {
-        startMatch = 1;
+        startMatch = 0;
 	sleep(0.2);  //send IR message every 200 ms
-        if(startMatch==0)
-        {
-            sendIR(positioning); //send position code
-        }
+        /*if(startMatch==0)
+        {*/
+        sendIR(positioning); //send position code
+        /*}
         else
         {
             sendIR(coordinates); //send coordinates code
@@ -163,7 +163,7 @@ void game()
                     break;
                 }
             }
-        }
+        }*/
     }
     
 }
