@@ -34,9 +34,10 @@ global tolerance_max
 global tolerance_min
 global last_turn
 
-tolerance_max = {'A':550 ,'B': 483, 'plank': 205, 'chest': 965, 'C': 700}
-tolerance_min = {'A':450 ,'B': 383, 'plank': 0, 'chest': 865, 'C': 600}
+tolerance_max = {'A':550 ,'B': 580, 'plank': 205, 'chest': 965, 'C': 700}
+tolerance_min = {'A':450 ,'B': 300, 'plank': 0, 'chest': 865, 'C': 600}
 #plank long distance: 2133
+#b old distance 483, 383
 last_turn = 3
 
 # Functions to move DC motors in specific way to accomplish movement in each direction.
@@ -188,7 +189,7 @@ def backtrack_a(InfraredSensor):
     
     #backward(62)
     forward(62)
-    sleep(1.6)
+    sleep(1.8)
     stop()
     sleep(1)
 
@@ -223,7 +224,7 @@ def walk_the_plank():
 def forward_b(InfraredSensor):
     if IR_control.IR1.destB == 0:
         print("Heading to location B. Route indicates turn North (0)\n")
-        turn_right(75, 1.5)
+        turn_right(75, 1.7)
         global last_turn
         last_turn = 0 #keep track of last turn
         stop()
@@ -231,7 +232,7 @@ def forward_b(InfraredSensor):
 
     elif IR_control.IR1.destB == 1:
         print("Heading to location B. Route indicates turn South (1)\n")
-        turn_left(75, 1.5)
+        turn_left(75, 1.7)
         global last_turn
         last_turn = 1 #keep track of last turn
         stop()
@@ -241,9 +242,9 @@ def forward_b(InfraredSensor):
     
     adjust(tolerance_max['B'], tolerance_min['B'])
     
-    #forward(62)
-    backward(62)
-    sleep(1.8)
+    forward(62)
+    #backward(62)
+    sleep(1.6)
     stop()
     sleep(1)
 
@@ -251,8 +252,8 @@ def forward_b(InfraredSensor):
 def backtrack_b(InfraredSensor):
     print("Backtracking to center.\n")
     
-    #backward(62)  # return to center
-    forward(62)
+    backward(62)  # return to center
+    #forward(62)
     sleep(1.6)
     stop()
     sleep(1)
@@ -352,10 +353,11 @@ def begin(InfraredSensor):
     backtrack_a(IR_control.IR1.destA)
     walk_the_plank()
     forward_b(IR_control.IR1.destB)
-    '''
     backtrack_b(IR_control.IR1.destB)
+    '''
     forward_chest()
     align_to_start()
     backtrack_to_start()
     forward_c(IR_control.IR1.destC)'''
     complete()
+

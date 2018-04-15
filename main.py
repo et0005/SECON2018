@@ -20,48 +20,37 @@
 #
 # ------------------------------------------------
 
+# Module for Raspberry Pi GPIO pins
+import RPi.GPIO as GPIO
+
 # Dependent Files
-#import RPi.GPIO as GPIO
-#from time import sleep
 from pirateRobot import routeEngine
 from pirateRobot import IR_control
 
-#GPIO.setmode(GPIO.BCM)
-#GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+# Ignore warnings
+GPIO.setwarnings(False)
 
-# Turn on rPI
-# Read IR for alignment
-#    Display on 7seg for alignment
-# Wait for 1, 2, 3, GO
-#    Flip Switch
-#         Upon switch
-#              Read IR route
-#              Load IR route into class variables (for turns only)
-#              IR route gets plugged into route engine
-#         Execute route via route engine
+# BOARD labels are printed on the board: PIN[#]
+# BCM labels are functional labels     : GPIO[#]
+# Use GPIO numbering for pins
+GPIO.setmode(GPIO.BCM)
 
-if IR_control.IR1.destA == 1:
-    if IR_control.IR1.destB == 1:
-        if IR_control.IR1.destC == 1:
-            print("Wait for start signal\n")
+GPIO.setup(24, GPIO.IN)
 
-print("Begin Route!\n")
-print("Route is : ABC : ")
-print(IR_control.IR1.destA)
-print(IR_control.IR1.destB)
-print(IR_control.IR1.destC)
-print("\n")
+while(1):
+    enable = GPIO.input(24)
+    
+    if(enable):
+        IR_control.IR1.ir_read()
+        
+        print("Begin Route!\n")
+        print("Route is : ABC : ")
+        print(IR_control.IR1.A)
+        print(IR_control.IR1.B)
+        print(IR_control.IR1.C)
+        print("\n")
 
-routeEngine.begin(IR_control.IR1)
+        #routeEngine.begin(IR_control.IR1)
 
-'''
-print("switch")
-while True:
-    input_value = GPIO.input(12)
-    if GPIO.input(12) == GPIO.HIGH:
-        print("who pressed my button!")
-        while input_value == False:
-            input_value = GPIO.input(12)
-
-GPIO.add_event_detect(12, GPIO.RISING, callback=my_callback)
-'''
+    else:
+        print("Huh")

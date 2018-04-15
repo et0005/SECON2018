@@ -89,12 +89,26 @@ GPIO.setmode(GPIO.BCM)
 
 
 class InfraredSensor:
-    def __init__(self, desta, destb, destc):
-        self.destA = desta
-        self.destB = destb
-        self.destC = destc
+    def __init__(self, destA, destB, destC):
+        self.A = 0
+        self.B = 0
+        self.C = 0
+        
+        self.destA = destA
+        self.destB = destB
+        self.destC = destC
+        
+        GPIO.setup(self.destA, GPIO.IN)
+        GPIO.setup(self.destB, GPIO.IN)
+        GPIO.setup(self.destC, GPIO.IN)
+        
+    def ir_read(self):
+        self.A = GPIO.input(self.destA)
+        self.B = GPIO.input(self.destB)
+        self.C = GPIO.input(self.destC)
 
 
 # Manually enter route codes for now.
 # ( Destination A, Destination B, Destination C)
-IR1 = InfraredSensor(0, 0, 0)
+# ( A / L, B / M, C / R)
+IR1 = InfraredSensor(25, 26, 27)
