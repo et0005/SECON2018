@@ -26,31 +26,55 @@ import RPi.GPIO as GPIO
 # Dependent Files
 from pirateRobot import routeEngine
 from pirateRobot import IR_control
+import serial
 
-# Ignore warnings
-GPIO.setwarnings(False)
+try:
+    ser = serial.Serial('/dev/ttyACM0', 9600)
+except:
+    ser = serial.Serial('/dev/ttyACM1', 9600)
 
-# BOARD labels are printed on the board: PIN[#]
-# BCM labels are functional labels     : GPIO[#]
-# Use GPIO numbering for pins
-GPIO.setmode(GPIO.BCM)
-
-GPIO.setup(24, GPIO.IN)
-
-while(1):
-    enable = GPIO.input(24)
-    
-    if(enable):
-        IR_control.IR1.ir_read()
-        
-        print("Begin Route!\n")
-        print("Route is : ABC : ")
-        print(IR_control.IR1.A)
-        print(IR_control.IR1.B)
-        print(IR_control.IR1.C)
-        print("\n")
-
-        #routeEngine.begin(IR_control.IR1)
-
+while 1 :
+    coordinates = ser.readline()
+    print coordinates
+    if (coordinates[0] == '1'):
+        IR_control.IR1.A = 0
+        IR_control.IR1.B = 0
+        IR_control.IR1.C = 0
+        routeEngine.begin(IR_control.IR1)
+    elif (coordinates[0] == '2'):
+        IR_control.IR1.A = 0
+        IR_control.IR1.B = 0
+        IR_control.IR1.C = 1
+        routeEngine.begin(IR_control.IR1)
+    elif (coordinates[0] == '3'):
+        IR_control.IR1.A = 0
+        IR_control.IR1.B = 1
+        IR_control.IR1.C = 0
+        routeEngine.begin(IR_control.IR1)
+    elif (coordinates[0] == '4'):
+        IR_control.IR1.A = 0
+        IR_control.IR1.B = 1
+        IR_control.IR1.C = 1
+        routeEngine.begin(IR_control.IR1)
+    elif (coordinates[0] == '5'):
+        IR_control.IR1.A = 1
+        IR_control.IR1.B = 0
+        IR_control.IR1.C = 0
+        routeEngine.begin(IR_control.IR1)
+    elif (coordinates[0] == '6'):
+        IR_control.IR1.A = 1
+        IR_control.IR1.B = 0
+        IR_control.IR1.C = 1
+        routeEngine.begin(IR_control.IR1)
+    elif (coordinates[0] == '7'):
+        IR_control.IR1.A = 1
+        IR_control.IR1.B = 1
+        IR_control.IR1.C = 0
+        routeEngine.begin(IR_control.IR1)
+    elif (coordinates[0] == '8'):
+        IR_control.IR1.A = 1
+        IR_control.IR1.B = 1
+        IR_control.IR1.C = 1
+        routeEngine.begin(IR_control.IR1)
     else:
-        print("Huh")
+        pass

@@ -142,11 +142,15 @@ void game()
         startMatch = 0;
 	sleep(0.2);  //send IR message every 200 ms
         /*if(startMatch==0)
-        {*/
-        sendIR(positioning); //send position code
-        /*}
-        else
         {
+        sendIR(positioning); //send position code
+        }
+        else
+        {*/
+            //coordinates[7] = '1';
+            //coordinates[6] = '1';
+            //coordinates[5] = '1';
+
             sendIR(coordinates); //send coordinates code
             if(!startedCounting)
             {
@@ -163,7 +167,7 @@ void game()
                     break;
                 }
             }
-        }*/
+        //}
     }
     
 }
@@ -175,7 +179,10 @@ void game()
 int main(int argc, char *argv[])
 {
     setup();
-    game();
-    
+    while(1)
+    {
+        game();
+        sleep(10);
+    }
     return 0;
 }
