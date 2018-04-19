@@ -34,7 +34,7 @@ global tolerance_max
 global tolerance_min
 global last_turn
 
-tolerance_max = {'A':550 ,'B': 580, 'plank': 205, 'chest': 360, 'C': 700} #chest 965
+tolerance_max = {'A':550 ,'B': 520, 'plank': 205, 'chest': 420, 'C': 700} #chest 965
 tolerance_min = {'A':450 ,'B': 220, 'plank': 0, 'chest': 0, 'C': 600}   #chest 865
 #plank long distance: 2133
 #b old distance 483, 383
@@ -209,12 +209,16 @@ def adjust_chest(tolerance_max, tolerance_min):
             #turn_right(75, 0.2)
             turn_left(75,0.1)
             sleep(0.1)
+            forward(65)
+            sleep(0.1)
             stop()
             angle = range_check_chest(tolerance_max, tolerance_min)
         elif last_turn == 0:
             print("Turn Right")
             turn_right(75,0.1)
             #turn_left(75,0.2)
+            sleep(0.1)
+            forward(65)
             sleep(0.1)
             stop()
             angle = range_check_chest(tolerance_max, tolerance_min)
@@ -225,7 +229,7 @@ def adjust_chest(tolerance_max, tolerance_min):
 def forward_a(InfraredSensor):
     if IR_control.IR1.A == 0:
         print("Heading to location A. Route indicates turn North (0)\n")
-        turn_right(75, 1.5)
+        turn_right(75, 1.6)
         global last_turn
         last_turn = 0 #keep track of last turn
         stop()
@@ -233,7 +237,7 @@ def forward_a(InfraredSensor):
 
     elif IR_control.IR1.A == 1:
         print("Heading to location A. Route indicates turn South (1)\n")
-        turn_left(75, 1.5)
+        turn_left(75, 1.6)
         global last_turn
         last_turn = 1 #keep track of last turn
         stop()
@@ -241,11 +245,11 @@ def forward_a(InfraredSensor):
 
     print("Arrived at A. Hitting Button.\n")
     
-    #adjust(tolerance_max['A'], tolerance_min['A'])
+    adjust(tolerance_max['A'], tolerance_min['A'])
     
     #forward(62)
     backward(62)
-    sleep(1.7)
+    sleep(1.8)
     stop()  # simulate button hit time
     sleep(1)  # simulate completion of first objective
 
@@ -277,12 +281,19 @@ def backtrack_a(InfraredSensor):
     adjust(tolerance_max['plank'], tolerance_min['plank'])
 
 
-def walk_the_plank():
+def walk_the_plank(direct):
     print("Walking the plank, arr!")
     
     #forward(62)
-    backward(62)
-    sleep(3.3)
+    if(direct == 0):
+        backward(62)
+        sleep(3.3)
+    elif(direct == 1):
+        backward(80)
+        sleep(3.35)
+    else:
+        sleep(1)
+    
     stop()
     sleep(1)
 
@@ -327,13 +338,13 @@ def backtrack_b(InfraredSensor):
     print("Facing chest.\n")
 
     if IR_control.IR1.B == 0:
-        turn_right(75, 1.4)
+        turn_right(75, 1.5)
         global last_turn
         last_turn = 0 #keep track of last turn
         stop()
         sleep(1)
     elif IR_control.IR1.B == 1:
-        turn_left(75, 1.4)
+        turn_left(75, 1.5)
         global last_turn
         last_turn = 1 #keep track of last turn
         stop()
@@ -357,7 +368,7 @@ def align_to_start():
     print("Facing the ship.\n")
 
     backward(80)
-    sleep(1.8)
+    sleep(1.6)
     stop()
     sleep(1)
 
@@ -376,14 +387,14 @@ def align_to_start():
 
 
 def backtrack_to_start():
-    walk_the_plank()
+    walk_the_plank(1)
 
 
 def forward_c(InfraredSensor):
     if IR_control.IR1.C == 0:
         print("Heading to location C. Route indicates turn North (0)\n")
         #turn_right(75, 1.2)
-        turn_left(75, 1.2)
+        turn_left(75, 1.5)
         global last_turn
         last_turn = 1#keep track of last turn
         stop()
@@ -392,7 +403,7 @@ def forward_c(InfraredSensor):
     elif IR_control.IR1.C == 1:
         print("Heading to location C. Route indicates turn South (1)\n")
         #turn_left(75, 1.2)
-        turn_right(75, 1.2)
+        turn_right(75, 1.5)
         global last_turn
         last_turn = 0 #keep track of last turn
         stop()
@@ -404,7 +415,7 @@ def forward_c(InfraredSensor):
     
     #forward(62)
     backward(62)
-    sleep(1.6)
+    sleep(1.8)
     stop()
 
 
@@ -418,11 +429,11 @@ def begin(InfraredSensor):
     sleep(1) #Move fingers away from button
     forward_a(IR_control.IR1.A)
     backtrack_a(IR_control.IR1.A)
-    walk_the_plank()
+    walk_the_plank(0)
     forward_b(IR_control.IR1.B)
     backtrack_b(IR_control.IR1.B)
     forward_chest()
-    '''align_to_start()
+    align_to_start()
     backtrack_to_start()
-    forward_c(IR_control.IR1.C)'''
+    forward_c(IR_control.IR1.C)
     complete()
